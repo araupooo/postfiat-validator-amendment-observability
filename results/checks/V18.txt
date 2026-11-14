@@ -1,0 +1,6 @@
+[CHECK V18] Burn cross-check against total_coins (TESTED)
+  hypothesis: For consecutive validated ledgers, total_coins(n-1) - total_coins(n) must equal the burn of ledger n. Every exact pair matches; the only two mismatches are fully explained by the two unfetched ledgers.
+  result: PASS
+  consecutive pairs checked: 195, exact: 195 OK
+  seq 8049460: gap pair, implied burn of the unfetched predecessor = 30 drops OK
+  seq 8049591: gap pair, implied burn of the unfetched predecessor = 20 drops OK

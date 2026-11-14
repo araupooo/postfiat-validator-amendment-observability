@@ -1,0 +1,5 @@
+[CHECK V05] Validator-list application validates publishers (TESTED)
+  hypothesis: ValidatorList::applyList/applyLists validate publisher public-key type, list sequence, and expiry before a list is trusted.
+  result: PASS
+  ValidatorList::applyListsAndBroadcast / applyLists / applyList present OK
+  list application validates publisher keys, sequence and expiry before trust OK

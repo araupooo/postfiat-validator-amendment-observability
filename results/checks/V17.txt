@@ -1,0 +1,10 @@
+[CHECK V17] Measured per-ledger fee burn (headline) (TESTED)
+  hypothesis: Per-ledger burn is the sum of that ledger's transaction fees. Measured over 198 consecutive validated ledgers, the mean is far below the previously cited rounded 10 drops/ledger.
+  result: PASS
+  ledgers measured: 198 OK
+  total burn: 772 drops OK
+  mean burn: 3.90 drops/ledger OK
+  median burn: 0 drops/ledger OK
+  min: 0, max: 50, stdev: 10.13 OK
+  empty ledgers (0 burn): 164/198 OK
+  HEADLINE: measured mean burn is 3.90 drops/ledger, not 10

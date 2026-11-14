@@ -1,0 +1,12 @@
+[CHECK V02] Validator quorum formula and live quorum (TESTED)
+  hypothesis: calculateQuorum returns max(ceil(0.67 * effective UNL), ceil(0.6 * UNL)); for a 25-validator UNL that is 17, matching the live validation_quorum.
+  result: PASS
+  UNL=5 -> quorum=4 OK
+  UNL=10 -> quorum=7 OK
+  UNL=17 -> quorum=12 OK
+  UNL=25 -> quorum=17 OK
+  UNL=30 -> quorum=21 OK
+  UNL=53 -> quorum=36 OK
+  UNL=100 -> quorum=67 OK
+  quorum(25) = 17, live validation_quorum = 17 OK
+  implied UNL size 25 (17/25 = 68%); upstream 80% would give quorum 20 for the same UNL

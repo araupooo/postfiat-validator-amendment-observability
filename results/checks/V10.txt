@@ -1,0 +1,4 @@
+[CHECK V10] Amendment majority hold time (TESTED)
+  hypothesis: An amendment must hold its majority for 2 weeks before it is enabled.
+  result: PASS
+  defaultAmendmentMajorityTime = 2 weeks OK

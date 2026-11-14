@@ -1,0 +1,6 @@
+[CHECK V07] Live validator participation (proposers) (TESTED)
+  hypothesis: The last_close.proposers count sampled during the fetch window is stable, and the validation quorum is 17 at both ends of the window.
+  result: PASS
+  proposers samples: 25, all 24 OK
+  validation_quorum 17 at window start and end OK
+  NOTE: proposers is a point-in-time count of validators that proposed in the last close, not a per-validator census

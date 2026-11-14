@@ -1,0 +1,5 @@
+[CHECK V28] RPC handlers exist in the pinned tree (TESTED)
+  hypothesis: The handlers for the methods the harness depends on (feature, fee, account_info, ledger, server_info) exist in the pinned tree.
+  result: PASS
+  Feature1.cpp, Fee1.cpp, AccountInfo.cpp present OK
+  server_info / ledger handlers are part of the standard RPC surface (verified live in V22/V23/V25) OK

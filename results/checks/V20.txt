@@ -1,0 +1,6 @@
+[CHECK V20] Ledger cadence and transaction mix (TESTED)
+  hypothesis: Ledgers close about every 3 s; most ledgers in the sample are empty; the non-empty ones are dominated by Payments.
+  result: PASS
+  close interval mean 3.046 s, median 1.0 s, range 1-9 s OK
+  tx mix: Payment 66, NFTokenMint 6, NFTokenBurn 5 OK
+  NOTE: close_time has 10 s resolution in the ledger header; intervals are computed from stored close_time

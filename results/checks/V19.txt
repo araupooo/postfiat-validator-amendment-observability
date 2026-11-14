@@ -1,0 +1,8 @@
+[CHECK V19] Per-transaction fee distribution (TESTED)
+  hypothesis: Almost every transaction in the sample pays exactly the 10-drop reference fee; the single exception is recorded, not smoothed away.
+  result: PASS
+  transactions: 77 OK
+  fee 10 drops: 76 tx OK
+  fee 12 drops: 1 tx OK
+  76/77 txs at exactly 10 drops; one tx at 12 drops OK
+  NOTE: the 12-drop tx is reported as observed; its reason (e.g. multi-signing or load) was not established

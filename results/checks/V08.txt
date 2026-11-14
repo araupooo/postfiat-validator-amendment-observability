@@ -1,0 +1,6 @@
+[CHECK V08] Live server identity (TESTED)
+  hypothesis: The probed node reports the pinned fork build, PFTL network id 2025, and full server state, with complete ledgers covering the sample.
+  result: PASS
+  build 1.0.9, network_id 2025, server_state full OK
+  complete_ledgers 7950054-8049599 covers sample 8049400..8049599 OK
+  peers 21 at window start OK

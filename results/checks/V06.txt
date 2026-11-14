@@ -1,0 +1,6 @@
+[CHECK V06] Negative-UNL water marks (TESTED)
+  hypothesis: A validator is a negative-UNL candidate below 128 validations and re-enabled above 204 in a flag-ledger period; the local node needs 230 local validations to vote.
+  result: PASS
+  low water mark 128 (= 256 * 50%) OK
+  high water mark 204 (= 256 * 80%) OK
+  local-vote minimum 230 (= 256 * 90%) OK

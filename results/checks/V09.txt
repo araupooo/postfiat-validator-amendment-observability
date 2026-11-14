@@ -1,0 +1,6 @@
+[CHECK V09] Amendment majority thresholds (TESTED)
+  hypothesis: Pre-fix threshold is 204/256 (79.6875%); post-fix threshold is 67/100, used once fixAmendmentMajorityCalc activates.
+  result: PASS
+  pre-fix 204/256 = 79.6875% OK
+  post-fix 67/100 = 67% OK
+  AmendmentSet::computeThreshold selects by fixAmendmentMajorityCalc (AmendmentTable.cpp:328-341) OK

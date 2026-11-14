@@ -1,0 +1,6 @@
+[CHECK V01] Pinned commit identity (TESTED)
+  hypothesis: The audit record and the harness agree on the pinned postfiatd commit.
+  result: PASS
+  pinned commit 0085a1ff885d6a446369cf73a4430f75af22be55 OK
+  tree /home/hatch/workspace/postfiatd-amendment/worktree-0085a1ff OK
+  git log: 0085a1f Merge pull request #50 from postfiatorg/hotfix/upstream-hardening-1.0.9 OK

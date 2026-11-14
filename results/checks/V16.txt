@@ -1,0 +1,6 @@
+[CHECK V16] Reference fee and reserves (TESTED)
+  hypothesis: The configured reference fee is 10 drops per reference transaction; account reserve 10 XRP, owner reserve 2 XRP per item.
+  result: PASS
+  reference_fee 10 drops (Config.h:69) OK
+  account_reserve 10 XRP, owner_reserve 2 XRP OK
+  live fee method agrees: base_fee 10, minimum_fee 10, open_ledger_fee 10 OK

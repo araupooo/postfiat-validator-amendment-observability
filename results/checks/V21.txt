@@ -1,0 +1,7 @@
+[CHECK V21] Corrected headline vs the prior rounded figure (TESTED)
+  hypothesis: The prior pack's '10 drops/ledger' headline was the per-transaction base fee, not a per-ledger measurement. The measured mean over 198 ledgers corrects it by a factor of about 2.6.
+  result: PASS
+  prior headline: 10 drops/ledger (rounded, actually the per-tx base fee) OK
+  measured mean: 3.90 drops/ledger over 198 ledgers OK
+  correction factor: 2.56x lower OK
+  measured median: 0 drops/ledger (most ledgers are empty) OK

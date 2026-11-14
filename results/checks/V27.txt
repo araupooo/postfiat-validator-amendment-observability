@@ -1,0 +1,4 @@
+[CHECK V27] feature method inventory completeness (TESTED)
+  hypothesis: Every amendment entry in the feature snapshot carries enabled and supported flags, so an agent can observe the full vote state.
+  result: PASS
+  101 amendments, all with enabled/supported OK
