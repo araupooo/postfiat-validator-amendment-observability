@@ -1,0 +1,7 @@
+[CHECK V30] Sample coverage and failures (TESTED)
+  hypothesis: 198 of 200 requested ledgers were fetched; the 2 failures are recorded with their errors and excluded from every statistic.
+  result: PASS
+  requested: 200, fetched: 198 OK
+  failed seq 8049459: RPC ledger failed after 4 attempts: IncompleteRead(3322 bytes read, 2406 more expected) OK
+  failed seq 8049590: RPC ledger failed after 4 attempts: IncompleteRead(7955 bytes read, 4871 more expected) OK
+  failed ledgers excluded from all statistics; their burn is only implied (V18), never counted OK

@@ -1,0 +1,6 @@
+[CHECK V15] Fees are destroyed, not paid (TESTED)
+  hypothesis: Transaction fees are destroyed via ApplyStateTable::destroyXRP and counted in dropsDestroyed_; no account is credited the fee.
+  result: PASS
+  ApplyStateTable::destroyXRP (ApplyStateTable.cpp:546) OK
+  dropsDestroyed_ accumulates the fee OK
+  therefore per-ledger burn = sum of the ledger's transaction fees OK

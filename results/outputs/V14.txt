@@ -1,0 +1,5 @@
+[CHECK V14] Fee-vote path at flag ledgers (TESTED)
+  hypothesis: FeeVote::doVoting runs at flag ledgers and votes the base fee and reserves toward the configured targets.
+  result: PASS
+  FeeVote::doVoting present (FeeVoteImpl.cpp) OK
+  votes base fee and reserves toward FeeSetup targets OK

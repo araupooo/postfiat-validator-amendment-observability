@@ -1,0 +1,6 @@
+[CHECK V24] fee method returns fee levels (TESTED)
+  hypothesis: The fee method returns base/median/minimum/open-ledger fees in drops and the corresponding levels.
+  result: PASS
+  base_fee 10, minimum_fee 10, open_ledger_fee 10 OK
+  median_fee 5000 as reported (median fee level converted to drops, TxQ.cpp:1899) OK
+  levels: reference 256, median 128000 OK

@@ -1,0 +1,5 @@
+[CHECK V12] Amendment votes travel in validations (TESTED)
+  hypothesis: Trusted validations carry the voter's amendment choices in the sfAmendments field, which AmendmentTable reads when computing the majority.
+  result: PASS
+  validations carry sfAmendments (AmendmentTable.cpp:187-189) OK
+  validations are built with sfAmendments (RCLConsensus.cpp:914) OK

@@ -1,0 +1,5 @@
+[CHECK V23] ledger method returns per-transaction fees (TESTED)
+  hypothesis: The ledger method with transactions+expand returns every transaction's Fee field, which is what the burn measurement sums.
+  result: PASS
+  198 ledgers, every transaction carries a Fee OK
+  method: ledger(ledger_index, transactions=true, expand=true) OK

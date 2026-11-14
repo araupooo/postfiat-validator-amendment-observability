@@ -1,0 +1,7 @@
+[CHECK V13] Live amendment inventory (feature method) (TESTED)
+  hypothesis: The feature method returns the full amendment inventory with enabled/supported/vetoed/majority status per amendment.
+  result: PASS
+  amendments inventoried: 101 OK
+  enabled: 64, supported: 101, vetoed: 0 OK
+  in majority right now: 0 (none) OK
+  NOTE: counts are a point-in-time snapshot from the feature method at the end of the fetch window

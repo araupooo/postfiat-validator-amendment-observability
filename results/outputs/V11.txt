@@ -1,0 +1,7 @@
+[CHECK V11] Flag-ledger voting cadence and quorum gate (TESTED)
+  hypothesis: Fee and amendment votes happen only at flag ledgers (every 256 ledgers) and only when trusted validations reach the quorum.
+  result: PASS
+  FLAG_LEDGER_INTERVAL = 256 OK
+  isFlagLedger(seq) = (seq % 256 == 0) OK
+  fee + amendment votes gated on validations >= quorum OK
+  ValidatorVoteTracker::doVoting runs every ledger; negative-UNL votes on voting ledgers OK

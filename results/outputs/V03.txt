@@ -1,0 +1,6 @@
+[CHECK V03] Validator-list site configuration and parsing (TESTED)
+  hypothesis: Validator lists are fetched from configured [validator_list_sites] URLs; a list is accepted only if the JSON carries a manifest, a version, and non-empty blobs.
+  result: PASS
+  [validator_list_sites] section present (ConfigSections.h:93) OK
+  ValidatorSite::parseJsonResponse requires manifest + version + non-empty blobs OK
+  [validator_list_keys] and [validator_list_threshold] sections also defined OK

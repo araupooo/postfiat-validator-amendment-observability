@@ -1,0 +1,5 @@
+[CHECK V25] ledger_closed returns the validated ledger (TESTED)
+  hypothesis: ledger_closed returns the current validated ledger hash and index, matching the sample's end.
+  result: PASS
+  ledger_closed index 8049720 OK
+  NOTE: ledger_closed is a point-in-time call; the index moves as the network closes ledgers

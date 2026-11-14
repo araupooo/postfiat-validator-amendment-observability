@@ -1,0 +1,6 @@
+[CHECK V04] Validator keys and manifest come from configuration (TESTED)
+  hypothesis: A validator's keys and manifest are set via [validator_token] in the config file; ValidatorKeys is empty when not configured as a validator.
+  result: PASS
+  [validator_token] section present (ConfigSections.h:96) OK
+  [validators] / [validators_file] sections present OK
+  ValidatorKeys: keys + manifest from config; empty when not configured as a validator OK

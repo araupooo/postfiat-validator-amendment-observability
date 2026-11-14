@@ -1,0 +1,4 @@
+[CHECK V22] server_info returns the fields agents need (TESTED)
+  hypothesis: server_info returns build_version, network_id, validated_ledger, validation_quorum, complete_ledgers, peers, and server_state.
+  result: PASS
+  all required server_info fields present OK

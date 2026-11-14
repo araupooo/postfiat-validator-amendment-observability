@@ -1,0 +1,5 @@
+[CHECK V26] account_info error path for malformed accounts (TESTED)
+  hypothesis: A malformed account returns a structured error (actMalformed, code 35) instead of an empty success, so agents can distinguish bad input.
+  result: PASS
+  malformed account -> error actMalformed, code 35 OK
+  NOTE: no real account was queried; only the error path was probed

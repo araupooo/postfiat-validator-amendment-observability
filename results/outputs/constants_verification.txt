@@ -1,0 +1,21 @@
+  reference_fee_drops: OK (tree: src/xrpld/core/Config.h)
+  account_reserve_xrp: OK (tree: src/xrpld/core/Config.h)
+  owner_reserve_xrp: OK (tree: src/xrpld/core/Config.h)
+  amendment_majority_pre_fix: OK (tree: include/xrpl/protocol/SystemParameters.h)
+  amendment_majority_post_fix: OK (tree: include/xrpl/protocol/SystemParameters.h)
+  amendment_majority_time_weeks: OK (tree: include/xrpl/protocol/SystemParameters.h)
+  default_peer_port: OK (tree: include/xrpl/protocol/SystemParameters.h)
+  flag_ledger_interval: OK (tree: src/xrpld/app/ledger/Ledger.h)
+  load_fee_normal: OK (tree: src/xrpld/app/misc/LoadFeeTrack.h)
+  load_fee_max: OK (tree: src/xrpld/app/misc/LoadFeeTrack.h)
+  negative_unl_50pct_ledgers: OK (tree: src/xrpld/app/misc/NegativeUNLVote.h)
+  negative_unl_80pct_ledgers: OK (tree: src/xrpld/app/misc/NegativeUNLVote.h)
+  negative_unl_min_local_vals: OK (tree: src/xrpld/app/misc/NegativeUNLVote.h)
+  validator_quorum_fraction: OK (tree: src/xrpld/app/misc/detail/ValidatorList.cpp)
+  validator_quorum_floor_fraction: OK (tree: src/xrpld/app/misc/detail/ValidatorList.cpp)
+  load_fee_max value 256000000: OK
+  negative_unl_50pct value 128: OK
+  negative_unl_80pct value 204: OK
+  negative_unl_min_local value 230: OK
+  quorum(25) == 17: OK
+constants: 20/20 OK

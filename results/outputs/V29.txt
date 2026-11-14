@@ -1,0 +1,7 @@
+[CHECK V29] Sample chain integrity (TESTED)
+  hypothesis: Every fetched ledger's parent_hash matches the previous fetched ledger's hash, except across the two unfetched ledgers, where the gap is exactly one ledger each.
+  result: PASS
+  ledgers: 198, hash-link breaks: 2 OK
+  break 8049458->8049460 is a one-ledger gap (ledger 8049459 unfetched) OK
+  break 8049589->8049591 is a one-ledger gap (ledger 8049590 unfetched) OK
+  seq range is consecutive apart from the 2 gaps OK
