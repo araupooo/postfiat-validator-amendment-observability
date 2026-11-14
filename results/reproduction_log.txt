@@ -1,0 +1,218 @@
+== run_checks ==
+[CHECK V01] Pinned commit identity (TESTED)
+  hypothesis: The audit record and the harness agree on the pinned postfiatd commit.
+  result: PASS
+  pinned commit 0085a1ff885d6a446369cf73a4430f75af22be55 OK
+  tree /home/hatch/workspace/postfiatd-amendment/worktree-0085a1ff OK
+  git log: 0085a1f Merge pull request #50 from postfiatorg/hotfix/upstream-hardening-1.0.9 OK
+[CHECK V02] Validator quorum formula and live quorum (TESTED)
+  hypothesis: calculateQuorum returns max(ceil(0.67 * effective UNL), ceil(0.6 * UNL)); for a 25-validator UNL that is 17, matching the live validation_quorum.
+  result: PASS
+  UNL=5 -> quorum=4 OK
+  UNL=10 -> quorum=7 OK
+  UNL=17 -> quorum=12 OK
+  UNL=25 -> quorum=17 OK
+  UNL=30 -> quorum=21 OK
+  UNL=53 -> quorum=36 OK
+  UNL=100 -> quorum=67 OK
+  quorum(25) = 17, live validation_quorum = 17 OK
+  implied UNL size 25 (17/25 = 68%); upstream 80% would give quorum 20 for the same UNL
+[CHECK V03] Validator-list site configuration and parsing (TESTED)
+  hypothesis: Validator lists are fetched from configured [validator_list_sites] URLs; a list is accepted only if the JSON carries a manifest, a version, and non-empty blobs.
+  result: PASS
+  [validator_list_sites] section present (ConfigSections.h:93) OK
+  ValidatorSite::parseJsonResponse requires manifest + version + non-empty blobs OK
+  [validator_list_keys] and [validator_list_threshold] sections also defined OK
+[CHECK V04] Validator keys and manifest come from configuration (TESTED)
+  hypothesis: A validator's keys and manifest are set via [validator_token] in the config file; ValidatorKeys is empty when not configured as a validator.
+  result: PASS
+  [validator_token] section present (ConfigSections.h:96) OK
+  [validators] / [validators_file] sections present OK
+  ValidatorKeys: keys + manifest from config; empty when not configured as a validator OK
+[CHECK V05] Validator-list application validates publishers (TESTED)
+  hypothesis: ValidatorList::applyList/applyLists validate publisher public-key type, list sequence, and expiry before a list is trusted.
+  result: PASS
+  ValidatorList::applyListsAndBroadcast / applyLists / applyList present OK
+  list application validates publisher keys, sequence and expiry before trust OK
+[CHECK V06] Negative-UNL water marks (TESTED)
+  hypothesis: A validator is a negative-UNL candidate below 128 validations and re-enabled above 204 in a flag-ledger period; the local node needs 230 local validations to vote.
+  result: PASS
+  low water mark 128 (= 256 * 50%) OK
+  high water mark 204 (= 256 * 80%) OK
+  local-vote minimum 230 (= 256 * 90%) OK
+[CHECK V07] Live validator participation (proposers) (TESTED)
+  hypothesis: The last_close.proposers count sampled during the fetch window is stable, and the validation quorum is 17 at both ends of the window.
+  result: PASS
+  proposers samples: 25, all 24 OK
+  validation_quorum 17 at window start and end OK
+  NOTE: proposers is a point-in-time count of validators that proposed in the last close, not a per-validator census
+[CHECK V08] Live server identity (TESTED)
+  hypothesis: The probed node reports the pinned fork build, PFTL network id 2025, and full server state, with complete ledgers covering the sample.
+  result: PASS
+  build 1.0.9, network_id 2025, server_state full OK
+  complete_ledgers 7950054-8049599 covers sample 8049400..8049599 OK
+  peers 21 at window start OK
+[CHECK V09] Amendment majority thresholds (TESTED)
+  hypothesis: Pre-fix threshold is 204/256 (79.6875%); post-fix threshold is 67/100, used once fixAmendmentMajorityCalc activates.
+  result: PASS
+  pre-fix 204/256 = 79.6875% OK
+  post-fix 67/100 = 67% OK
+  AmendmentSet::computeThreshold selects by fixAmendmentMajorityCalc (AmendmentTable.cpp:328-341) OK
+[CHECK V10] Amendment majority hold time (TESTED)
+  hypothesis: An amendment must hold its majority for 2 weeks before it is enabled.
+  result: PASS
+  defaultAmendmentMajorityTime = 2 weeks OK
+[CHECK V11] Flag-ledger voting cadence and quorum gate (TESTED)
+  hypothesis: Fee and amendment votes happen only at flag ledgers (every 256 ledgers) and only when trusted validations reach the quorum.
+  result: PASS
+  FLAG_LEDGER_INTERVAL = 256 OK
+  isFlagLedger(seq) = (seq % 256 == 0) OK
+  fee + amendment votes gated on validations >= quorum OK
+  ValidatorVoteTracker::doVoting runs every ledger; negative-UNL votes on voting ledgers OK
+[CHECK V12] Amendment votes travel in validations (TESTED)
+  hypothesis: Trusted validations carry the voter's amendment choices in the sfAmendments field, which AmendmentTable reads when computing the majority.
+  result: PASS
+  validations carry sfAmendments (AmendmentTable.cpp:187-189) OK
+  validations are built with sfAmendments (RCLConsensus.cpp:914) OK
+[CHECK V13] Live amendment inventory (feature method) (TESTED)
+  hypothesis: The feature method returns the full amendment inventory with enabled/supported/vetoed/majority status per amendment.
+  result: PASS
+  amendments inventoried: 101 OK
+  enabled: 64, supported: 101, vetoed: 0 OK
+  in majority right now: 0 (none) OK
+  NOTE: counts are a point-in-time snapshot from the feature method at the end of the fetch window
+[CHECK V14] Fee-vote path at flag ledgers (TESTED)
+  hypothesis: FeeVote::doVoting runs at flag ledgers and votes the base fee and reserves toward the configured targets.
+  result: PASS
+  FeeVote::doVoting present (FeeVoteImpl.cpp) OK
+  votes base fee and reserves toward FeeSetup targets OK
+[CHECK V15] Fees are destroyed, not paid (TESTED)
+  hypothesis: Transaction fees are destroyed via ApplyStateTable::destroyXRP and counted in dropsDestroyed_; no account is credited the fee.
+  result: PASS
+  ApplyStateTable::destroyXRP (ApplyStateTable.cpp:546) OK
+  dropsDestroyed_ accumulates the fee OK
+  therefore per-ledger burn = sum of the ledger's transaction fees OK
+[CHECK V16] Reference fee and reserves (TESTED)
+  hypothesis: The configured reference fee is 10 drops per reference transaction; account reserve 10 XRP, owner reserve 2 XRP per item.
+  result: PASS
+  reference_fee 10 drops (Config.h:69) OK
+  account_reserve 10 XRP, owner_reserve 2 XRP OK
+  live fee method agrees: base_fee 10, minimum_fee 10, open_ledger_fee 10 OK
+[CHECK V17] Measured per-ledger fee burn (headline) (TESTED)
+  hypothesis: Per-ledger burn is the sum of that ledger's transaction fees. Measured over 198 consecutive validated ledgers, the mean is far below the previously cited rounded 10 drops/ledger.
+  result: PASS
+  ledgers measured: 198 OK
+  total burn: 772 drops OK
+  mean burn: 3.90 drops/ledger OK
+  median burn: 0 drops/ledger OK
+  min: 0, max: 50, stdev: 10.13 OK
+  empty ledgers (0 burn): 164/198 OK
+  HEADLINE: measured mean burn is 3.90 drops/ledger, not 10
+[CHECK V18] Burn cross-check against total_coins (TESTED)
+  hypothesis: For consecutive validated ledgers, total_coins(n-1) - total_coins(n) must equal the burn of ledger n. Every exact pair matches; the only two mismatches are fully explained by the two unfetched ledgers.
+  result: PASS
+  consecutive pairs checked: 195, exact: 195 OK
+  seq 8049460: gap pair, implied burn of the unfetched predecessor = 30 drops OK
+  seq 8049591: gap pair, implied burn of the unfetched predecessor = 20 drops OK
+[CHECK V19] Per-transaction fee distribution (TESTED)
+  hypothesis: Almost every transaction in the sample pays exactly the 10-drop reference fee; the single exception is recorded, not smoothed away.
+  result: PASS
+  transactions: 77 OK
+  fee 10 drops: 76 tx OK
+  fee 12 drops: 1 tx OK
+  76/77 txs at exactly 10 drops; one tx at 12 drops OK
+  NOTE: the 12-drop tx is reported as observed; its reason (e.g. multi-signing or load) was not established
+[CHECK V20] Ledger cadence and transaction mix (TESTED)
+  hypothesis: Ledgers close about every 3 s; most ledgers in the sample are empty; the non-empty ones are dominated by Payments.
+  result: PASS
+  close interval mean 3.046 s, median 1.0 s, range 1-9 s OK
+  tx mix: Payment 66, NFTokenMint 6, NFTokenBurn 5 OK
+  NOTE: close_time has 10 s resolution in the ledger header; intervals are computed from stored close_time
+[CHECK V21] Corrected headline vs the prior rounded figure (TESTED)
+  hypothesis: The prior pack's '10 drops/ledger' headline was the per-transaction base fee, not a per-ledger measurement. The measured mean over 198 ledgers corrects it by a factor of about 2.6.
+  result: PASS
+  prior headline: 10 drops/ledger (rounded, actually the per-tx base fee) OK
+  measured mean: 3.90 drops/ledger over 198 ledgers OK
+  correction factor: 2.56x lower OK
+  measured median: 0 drops/ledger (most ledgers are empty) OK
+[CHECK V22] server_info returns the fields agents need (TESTED)
+  hypothesis: server_info returns build_version, network_id, validated_ledger, validation_quorum, complete_ledgers, peers, and server_state.
+  result: PASS
+  all required server_info fields present OK
+[CHECK V23] ledger method returns per-transaction fees (TESTED)
+  hypothesis: The ledger method with transactions+expand returns every transaction's Fee field, which is what the burn measurement sums.
+  result: PASS
+  198 ledgers, every transaction carries a Fee OK
+  method: ledger(ledger_index, transactions=true, expand=true) OK
+[CHECK V24] fee method returns fee levels (TESTED)
+  hypothesis: The fee method returns base/median/minimum/open-ledger fees in drops and the corresponding levels.
+  result: PASS
+  base_fee 10, minimum_fee 10, open_ledger_fee 10 OK
+  median_fee 5000 as reported (median fee level converted to drops, TxQ.cpp:1899) OK
+  levels: reference 256, median 128000 OK
+[CHECK V25] ledger_closed returns the validated ledger (TESTED)
+  hypothesis: ledger_closed returns the current validated ledger hash and index, matching the sample's end.
+  result: PASS
+  ledger_closed index 8049720 OK
+  NOTE: ledger_closed is a point-in-time call; the index moves as the network closes ledgers
+[CHECK V26] account_info error path for malformed accounts (TESTED)
+  hypothesis: A malformed account returns a structured error (actMalformed, code 35) instead of an empty success, so agents can distinguish bad input.
+  result: PASS
+  malformed account -> error actMalformed, code 35 OK
+  NOTE: no real account was queried; only the error path was probed
+[CHECK V27] feature method inventory completeness (TESTED)
+  hypothesis: Every amendment entry in the feature snapshot carries enabled and supported flags, so an agent can observe the full vote state.
+  result: PASS
+  101 amendments, all with enabled/supported OK
+[CHECK V28] RPC handlers exist in the pinned tree (TESTED)
+  hypothesis: The handlers for the methods the harness depends on (feature, fee, account_info, ledger, server_info) exist in the pinned tree.
+  result: PASS
+  Feature1.cpp, Fee1.cpp, AccountInfo.cpp present OK
+  server_info / ledger handlers are part of the standard RPC surface (verified live in V22/V23/V25) OK
+[CHECK V29] Sample chain integrity (TESTED)
+  hypothesis: Every fetched ledger's parent_hash matches the previous fetched ledger's hash, except across the two unfetched ledgers, where the gap is exactly one ledger each.
+  result: PASS
+  ledgers: 198, hash-link breaks: 2 OK
+  break 8049458->8049460 is a one-ledger gap (ledger 8049459 unfetched) OK
+  break 8049589->8049591 is a one-ledger gap (ledger 8049590 unfetched) OK
+  seq range is consecutive apart from the 2 gaps OK
+[CHECK V30] Sample coverage and failures (TESTED)
+  hypothesis: 198 of 200 requested ledgers were fetched; the 2 failures are recorded with their errors and excluded from every statistic.
+  result: PASS
+  requested: 200, fetched: 198 OK
+  failed seq 8049459: RPC ledger failed after 4 attempts: IncompleteRead(3322 bytes read, 2406 more expected) OK
+  failed seq 8049590: RPC ledger failed after 4 attempts: IncompleteRead(7955 bytes read, 4871 more expected) OK
+  failed ledgers excluded from all statistics; their burn is only implied (V18), never counted OK
+checks: 30 total, 30 passed, 0 failed
+live tree note: live re-run: git rev-parse HEAD matches pinned commit
+== verify_constants ==
+  reference_fee_drops: OK (tree: src/xrpld/core/Config.h)
+  account_reserve_xrp: OK (tree: src/xrpld/core/Config.h)
+  owner_reserve_xrp: OK (tree: src/xrpld/core/Config.h)
+  amendment_majority_pre_fix: OK (tree: include/xrpl/protocol/SystemParameters.h)
+  amendment_majority_post_fix: OK (tree: include/xrpl/protocol/SystemParameters.h)
+  amendment_majority_time_weeks: OK (tree: include/xrpl/protocol/SystemParameters.h)
+  default_peer_port: OK (tree: include/xrpl/protocol/SystemParameters.h)
+  flag_ledger_interval: OK (tree: src/xrpld/app/ledger/Ledger.h)
+  load_fee_normal: OK (tree: src/xrpld/app/misc/LoadFeeTrack.h)
+  load_fee_max: OK (tree: src/xrpld/app/misc/LoadFeeTrack.h)
+  negative_unl_50pct_ledgers: OK (tree: src/xrpld/app/misc/NegativeUNLVote.h)
+  negative_unl_80pct_ledgers: OK (tree: src/xrpld/app/misc/NegativeUNLVote.h)
+  negative_unl_min_local_vals: OK (tree: src/xrpld/app/misc/NegativeUNLVote.h)
+  validator_quorum_fraction: OK (tree: src/xrpld/app/misc/detail/ValidatorList.cpp)
+  validator_quorum_floor_fraction: OK (tree: src/xrpld/app/misc/detail/ValidatorList.cpp)
+  load_fee_max value 256000000: OK
+  negative_unl_50pct value 128: OK
+  negative_unl_80pct value 204: OK
+  negative_unl_min_local value 230: OK
+  quorum(25) == 17: OK
+constants: 20/20 OK
+== build_derived ==
+docs/index.html written (9761 bytes)
+checks: 30 total, 30 passed, 0 failed
+findings: 7 rows
+== outputs (fresh-run copies) ==
+== digests ==
+verify_digests.sh: manifest regenerated (87 files)
+verify_digests.sh: 87 files OK, 0 failed
+run_all.sh: OK

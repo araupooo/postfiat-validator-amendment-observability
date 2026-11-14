@@ -1,0 +1,189 @@
+{
+  "checks": [
+    {
+      "id": "V01",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "Pinned commit identity"
+    },
+    {
+      "id": "V02",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "Validator quorum formula and live quorum"
+    },
+    {
+      "id": "V03",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "Validator-list site configuration and parsing"
+    },
+    {
+      "id": "V04",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "Validator keys and manifest come from configuration"
+    },
+    {
+      "id": "V05",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "Validator-list application validates publishers"
+    },
+    {
+      "id": "V06",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "Negative-UNL water marks"
+    },
+    {
+      "id": "V07",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "Live validator participation (proposers)"
+    },
+    {
+      "id": "V08",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "Live server identity"
+    },
+    {
+      "id": "V09",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "Amendment majority thresholds"
+    },
+    {
+      "id": "V10",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "Amendment majority hold time"
+    },
+    {
+      "id": "V11",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "Flag-ledger voting cadence and quorum gate"
+    },
+    {
+      "id": "V12",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "Amendment votes travel in validations"
+    },
+    {
+      "id": "V13",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "Live amendment inventory (feature method)"
+    },
+    {
+      "id": "V14",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "Fee-vote path at flag ledgers"
+    },
+    {
+      "id": "V15",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "Fees are destroyed, not paid"
+    },
+    {
+      "id": "V16",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "Reference fee and reserves"
+    },
+    {
+      "id": "V17",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "Measured per-ledger fee burn (headline)"
+    },
+    {
+      "id": "V18",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "Burn cross-check against total_coins"
+    },
+    {
+      "id": "V19",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "Per-transaction fee distribution"
+    },
+    {
+      "id": "V20",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "Ledger cadence and transaction mix"
+    },
+    {
+      "id": "V21",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "Corrected headline vs the prior rounded figure"
+    },
+    {
+      "id": "V22",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "server_info returns the fields agents need"
+    },
+    {
+      "id": "V23",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "ledger method returns per-transaction fees"
+    },
+    {
+      "id": "V24",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "fee method returns fee levels"
+    },
+    {
+      "id": "V25",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "ledger_closed returns the validated ledger"
+    },
+    {
+      "id": "V26",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "account_info error path for malformed accounts"
+    },
+    {
+      "id": "V27",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "feature method inventory completeness"
+    },
+    {
+      "id": "V28",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "RPC handlers exist in the pinned tree"
+    },
+    {
+      "id": "V29",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "Sample chain integrity"
+    },
+    {
+      "id": "V30",
+      "kind": "TESTED",
+      "status": "PASS",
+      "title": "Sample coverage and failures"
+    }
+  ],
+  "checks_failed": 0,
+  "checks_passed": 30,
+  "checks_total": 30,
+  "live_tree_note": "live re-run: git rev-parse HEAD matches pinned commit",
+  "pinned_commit": "0085a1ff885d6a446369cf73a4430f75af22be55"
+}
