@@ -1,0 +1,203 @@
+{
+  "checks": [
+    {
+      "cmd": "git rev-parse HEAD",
+      "returncode": 0,
+      "stdout": "0085a1ff885d6a446369cf73a4430f75af22be55\n"
+    },
+    {
+      "cmd": "git log --oneline -1",
+      "returncode": 0,
+      "stdout": "0085a1f Merge pull request #50 from postfiatorg/hotfix/upstream-hardening-1.0.9\n"
+    },
+    {
+      "cmd": "grep -ril ml-kem\\|mlkem\\|kyber .",
+      "returncode": 1,
+      "stdout": ""
+    },
+    {
+      "cmd": "grep -rn postFixAmendmentMajorityCalcThreshold include/xrpl/protocol/SystemParameters.h",
+      "returncode": 0,
+      "stdout": "85:constexpr std::ratio<67, 100> postFixAmendmentMajorityCalcThreshold;\n"
+    },
+    {
+      "cmd": "grep -rn preFixAmendmentMajorityCalcThreshold include/xrpl/protocol/SystemParameters.h",
+      "returncode": 0,
+      "stdout": "83:constexpr std::ratio<204, 256> preFixAmendmentMajorityCalcThreshold;\n"
+    },
+    {
+      "cmd": "grep -rn defaultAmendmentMajorityTime include/xrpl/protocol/SystemParameters.h",
+      "returncode": 0,
+      "stdout": "88:constexpr std::chrono::seconds const defaultAmendmentMajorityTime = std::chrono::weeks{2};\n"
+    },
+    {
+      "cmd": "grep -rn calculateQuorum src/xrpld/app/misc/detail/ValidatorList.cpp",
+      "returncode": 0,
+      "stdout": "1845:ValidatorList::calculateQuorum(\n1893:            \"ripple::ValidatorList::calculateQuorum : nonzero error threshold\");\n2109:    quorum_ = calculateQuorum(unlSize, effectiveUnlSize, seenSize);\n"
+    },
+    {
+      "cmd": "grep -rn doVoting src/xrpld/app/consensus/RCLConsensus.cpp",
+      "returncode": 0,
+      "stdout": "357:        app_.getValidatorVoteTracker().doVoting(\n373:                feeVote_->doVoting(prevLedger, validations, initialSet);\n374:                app_.getAmendmentTable().doVoting(\n385:            nUnlVote_.doVoting(\n"
+    },
+    {
+      "cmd": "grep -rn destroyXRP src/libxrpl/ledger/ApplyStateTable.cpp",
+      "returncode": 0,
+      "stdout": "546:ApplyStateTable::destroyXRP(XRPAmount const& fee)\n"
+    },
+    {
+      "cmd": "grep -rn FLAG_LEDGER_INTERVAL =  src/xrpld/app/ledger/Ledger.h",
+      "returncode": 0,
+      "stdout": "426:std::uint32_t constexpr FLAG_LEDGER_INTERVAL = 256;\n"
+    },
+    {
+      "cmd": "grep -rn reference_fee src/xrpld/core/Config.h",
+      "returncode": 0,
+      "stdout": "69:    XRPAmount reference_fee{10};\n"
+    },
+    {
+      "cmd": "grep -rn account_reserve src/xrpld/core/Config.h",
+      "returncode": 0,
+      "stdout": "72:    XRPAmount account_reserve{10 * DROPS_PER_XRP};\n"
+    },
+    {
+      "cmd": "grep -rn owner_reserve src/xrpld/core/Config.h",
+      "returncode": 0,
+      "stdout": "75:    XRPAmount owner_reserve{2 * DROPS_PER_XRP};\n"
+    },
+    {
+      "cmd": "grep -rn validator_list_sites src/xrpld/core/ConfigSections.h",
+      "returncode": 0,
+      "stdout": "93:#define SECTION_VALIDATOR_LIST_SITES \"validator_list_sites\"\n"
+    },
+    {
+      "cmd": "grep -rn validator_token src/xrpld/core/ConfigSections.h",
+      "returncode": 0,
+      "stdout": "96:#define SECTION_VALIDATOR_TOKEN \"validator_token\"\n"
+    },
+    {
+      "cmd": "grep -rn parseJsonResponse src/xrpld/app/misc/detail/ValidatorSite.cpp",
+      "returncode": 0,
+      "stdout": "372:ValidatorSite::parseJsonResponse(\n416:        \"ripple::ValidatorSite::parseJsonResponse : version match\");\n583:                        parseJsonResponse(res.body(), siteIdx, lock_sites);\n652:            parseJsonResponse(res, siteIdx, lock_sites);\n"
+    },
+    {
+      "cmd": "grep -rn applyList src/xrpld/app/misc/detail/ValidatorList.cpp",
+      "returncode": 0,
+      "stdout": "943:ValidatorList::applyListsAndBroadcast(\n954:        applyLists(manifest, version, blobs, std::move(siteUri), hash);\n1001:ValidatorList::applyLists(\n1019:        auto stats = applyList(\n1053:                \"ripple::ValidatorList::applyLists : next is valid\");\n1144:ValidatorList::applyList(\n1183:            \"ripple::ValidatorList::applyList : invalid public key type\");\n1244:            \"ripple::ValidatorList::applyList : publisher sequence match\");\n1600:        // overlaps with the previous validUntil. applyLists has already cleaned\n"
+    },
+    {
+      "cmd": "grep -rn sfAmendments src/xrpld/app/misc/detail/AmendmentTable.cpp",
+      "returncode": 0,
+      "stdout": "187:                if (val->isFieldPresent(sfAmendments))\n189:                    auto const& choices = val->getFieldV256(sfAmendments);\n"
+    },
+    {
+      "cmd": "grep -rn negativeUNLLowWaterMark src/xrpld/app/misc/NegativeUNLVote.h",
+      "returncode": 0,
+      "stdout": "52:     * negativeUNLLowWaterMark in the last flag ledger period.\n56:    static constexpr size_t negativeUNLLowWaterMark =\n"
+    },
+    {
+      "cmd": "grep -rn negativeUNLHighWaterMark src/xrpld/app/misc/NegativeUNLVote.h",
+      "returncode": 0,
+      "stdout": "59:     * An unreliable validator must have more than negativeUNLHighWaterMark\n62:    static constexpr size_t negativeUNLHighWaterMark =\n"
+    },
+    {
+      "cmd": "grep -rn negativeUNLMinLocalValsToVote src/xrpld/app/misc/NegativeUNLVote.h",
+      "returncode": 0,
+      "stdout": "68:    static constexpr size_t negativeUNLMinLocalValsToVote =\n"
+    },
+    {
+      "cmd": "grep -rn doVoting src/xrpld/app/misc/FeeVoteImpl.cpp",
+      "returncode": 0,
+      "stdout": "106:    doVoting(\n196:FeeVoteImpl::doVoting(\n204:        \"ripple::FeeVoteImpl::doVoting : has a flag ledger\");\n"
+    },
+    {
+      "cmd": "grep -rln doRpc.*feature\\|feature.*Handler src/xrpld/rpc/handlers/Feature1.cpp",
+      "returncode": 1,
+      "stdout": ""
+    },
+    {
+      "cmd": "ls src/xrpld/rpc/handlers/Feature1.cpp src/xrpld/rpc/handlers/Fee1.cpp src/xrpld/rpc/handlers/AccountInfo.cpp",
+      "returncode": 0,
+      "stdout": "src/xrpld/rpc/handlers/AccountInfo.cpp\nsrc/xrpld/rpc/handlers/Feature1.cpp\nsrc/xrpld/rpc/handlers/Fee1.cpp\n"
+    },
+    {
+      "cmd": "grep -rn isFlagLedger src/xrpld/app/ledger/Ledger.cpp",
+      "returncode": 0,
+      "stdout": "970:Ledger::isFlagLedger() const\n981:isFlagLedger(LedgerIndex seq)\n"
+    },
+    {
+      "cmd": "grep -rn getTrustedForLedger src/xrpld/app/misc/detail/AmendmentTable.cpp",
+      "returncode": 1,
+      "stdout": ""
+    },
+    {
+      "cmd": "grep -rn validation_quorum src/xrpld/app/misc/detail/ValidatorList.cpp",
+      "returncode": 0,
+      "stdout": "1649:    res[jss::validation_quorum] = static_cast<Json::UInt>(quorum_);\n"
+    }
+  ],
+  "pinned_commit": "0085a1ff885d6a446369cf73a4430f75af22be55",
+  "snippets": {
+    "amendment_votes": {
+      "file": "src/xrpld/app/misc/detail/AmendmentTable.cpp",
+      "lines": "180-200",
+      "text": "            auto const pkHuman =\n                toBase58(TokenType::NodePublic, val->getSignerPublic());\n            // If this validation comes from one of our trusted validators...\n            if (auto const iter = recordedVotes_.find(val->getSignerPublic());\n                iter != recordedVotes_.end())\n            {\n                iter->second.timeout = newTimeout;\n                if (val->isFieldPresent(sfAmendments))\n                {\n                    auto const& choices = val->getFieldV256(sfAmendments);\n                    iter->second.upVotes.assign(choices.begin(), choices.end());\n                    JLOG(j.debug())\n                        << \"recordVotes: Validation from trusted \" << pkHuman\n                        << \" has \" << choices.size() << \" amendment votes: \"\n                        << boost::algorithm::join(\n                               iter->second.upVotes |\n                                   boost::adaptors::transformed(\n                                       to_string<256, void>),\n                               \", \");\n                    // TODO: Maybe transform using to_short_string once #5126 is\n                    // merged\n"
+    },
+    "destroy_xrp": {
+      "file": "src/libxrpl/ledger/ApplyStateTable.cpp",
+      "lines": "544-549",
+      "text": "\nvoid\nApplyStateTable::destroyXRP(XRPAmount const& fee)\n{\n    dropsDestroyed_ += fee;\n}\n"
+    },
+    "dovoting_gate": {
+      "file": "src/xrpld/app/consensus/RCLConsensus.cpp",
+      "lines": "354-390",
+      "text": "    if (app_.config().standalone() || (proposing && !wrongLCL))\n    {\n        // Call ValidatorVoteTracker for every ledger\n        app_.getValidatorVoteTracker().doVoting(\n            prevLedger, \n            app_.getValidations().getTrustedForLedger(\n                prevLedger->info().parentHash, prevLedger->seq() - 1),\n            initialSet, \n            j_);\n\n        if (prevLedger->isFlagLedger())\n        {\n            // previous ledger was flag ledger, add fee and amendment\n            // pseudo-transactions\n            auto validations = app_.validators().negativeUNLFilter(\n                app_.getValidations().getTrustedForLedger(\n                    prevLedger->info().parentHash, prevLedger->seq() - 1));\n            if (validations.size() >= app_.validators().quorum())\n            {\n                feeVote_->doVoting(prevLedger, validations, initialSet);\n                app_.getAmendmentTable().doVoting(\n                    prevLedger, validations, initialSet, j_);\n            }\n        }\n        else if (\n            prevLedger->isVotingLedger() &&\n            prevLedger->rules().enabled(featureNegativeUNL))\n        {\n            // previous ledger was a voting ledger,\n            // so the current consensus session is for a flag ledger,\n            // add negative UNL pseudo-transactions\n            nUnlVote_.doVoting(\n                prevLedger,\n                app_.validators().getTrustedMasterKeys(),\n                app_.getValidations(),\n                initialSet);\n        }\n"
+    },
+    "fee_setup": {
+      "file": "src/xrpld/core/Config.h",
+      "lines": "64-76",
+      "text": "A default-constructed Setup contains recommended values.\n*/\nstruct FeeSetup\n{\n    /** The cost of a reference transaction in drops. */\n    XRPAmount reference_fee{10};\n\n    /** The account reserve requirement in drops. */\n    XRPAmount account_reserve{10 * DROPS_PER_XRP};\n\n    /** The per-owned item reserve requirement in drops. */\n    XRPAmount owner_reserve{2 * DROPS_PER_XRP};\n\n"
+    },
+    "flag_ledger": {
+      "file": "src/xrpld/app/ledger/Ledger.h",
+      "lines": "424-430",
+      "text": "using CachedLedger = CachedView<Ledger>;\n\nstd::uint32_t constexpr FLAG_LEDGER_INTERVAL = 256;\n/** Returns true if the given ledgerIndex is a flag ledgerIndex */\nbool\nisFlagLedger(LedgerIndex seq);\n\n"
+    },
+    "is_flag_ledger": {
+      "file": "src/xrpld/app/ledger/Ledger.cpp",
+      "lines": "979-985",
+      "text": "\nbool\nisFlagLedger(LedgerIndex seq)\n{\n    return seq % FLAG_LEDGER_INTERVAL == 0;\n}\n\n"
+    },
+    "median_fee": {
+      "file": "src/xrpld/app/misc/detail/TxQ.cpp",
+      "lines": "1895-1902",
+      "text": "    }();\n    auto& drops = ret[jss::drops] = Json::Value();\n\n    drops[jss::base_fee] = to_string(baseFee);\n    drops[jss::median_fee] = to_string(toDrops(metrics.medFeeLevel, baseFee));\n    drops[jss::minimum_fee] = to_string(toDrops(\n        metrics.minProcessingFeeLevel,\n        metrics.txCount >= metrics.txQMaxSize ? effectiveBaseFee : baseFee));\n"
+    },
+    "negative_unl": {
+      "file": "src/xrpld/app/misc/NegativeUNLVote.h",
+      "lines": "50-70",
+      "text": "    /**\n     * A validator is considered unreliable if its validations is less than\n     * negativeUNLLowWaterMark in the last flag ledger period.\n     * An unreliable validator is a candidate to be disabled by the NegativeUNL\n     * protocol.\n     */\n    static constexpr size_t negativeUNLLowWaterMark =\n        FLAG_LEDGER_INTERVAL * 50 / 100;\n    /**\n     * An unreliable validator must have more than negativeUNLHighWaterMark\n     * validations in the last flag ledger period to be re-enabled.\n     */\n    static constexpr size_t negativeUNLHighWaterMark =\n        FLAG_LEDGER_INTERVAL * 80 / 100;\n    /**\n     * The minimum number of validations of the local node for it to\n     * participate in the voting.\n     */\n    static constexpr size_t negativeUNLMinLocalValsToVote =\n        FLAG_LEDGER_INTERVAL * 90 / 100;\n    /**\n"
+    },
+    "quorum_return": {
+      "file": "src/xrpld/app/misc/detail/ValidatorList.cpp",
+      "lines": "1896-1935",
+      "text": "    }\n\n    // Use a 67% quorum to balance fork safety, liveness, and required UNL\n    // overlap. Note: Original XRPL uses 80%, but this fork uses 67% for\n    // devnet/testnet. For mainnet, this should be reverted to 80%.\n    //\n    // Theorem 8 of the Analysis of the XRP Ledger Consensus Protocol\n    // (https://arxiv.org/abs/1802.07242) says:\n    //     XRP LCP guarantees fork safety if Oi,j > nj/2 + ni \u2212 qi + ti,j\n    //     for every pair of nodes Pi, Pj.\n    //\n    // ni: size of Pi's UNL\n    // nj: size of Pj's UNL\n    // Oi,j: number of validators in both UNLs\n    // qi: validation quorum for Pi's UNL\n    // ti, tj: maximum number of allowed Byzantine faults in Pi and Pj's\n    // UNLs ti,j: min{ti, tj, Oi,j}\n    //\n    // Assume ni < nj, meaning and ti,j = ti\n    //\n    // For qi = .67*ni, we make ti <= .33*ni\n    // (We could make ti lower and tolerate less UNL overlap. However in\n    // order to prioritize safety over liveness, we need ti >= ni - qi)\n    //\n    // A 67% quorum allows two UNLs to safely have < .33*ni unique\n    // validators between them:\n    //\n    // pi = ni - Oi,j\n    // pj = nj - Oi,j\n    //\n    // Oi,j > nj/2 + ni \u2212 qi + ti,j\n    // ni - pi > (ni - pi + pj)/2 + ni \u2212 .67*ni + .33*ni\n    // pi + pj < .33*ni\n    //\n    // Note that the negative UNL protocol introduced the\n    // AbsoluteMinimumQuorum which is 60% of the original UNL size. The\n    // effective quorum should not be lower than it.\n    return static_cast<std::size_t>(std::max(\n        std::ceil(effectiveUnlSize * 0.67f), std::ceil(unlSize * 0.6f)));\n}\n"
+    },
+    "thresholds": {
+      "file": "include/xrpl/protocol/SystemParameters.h",
+      "lines": "78-88",
+      "text": "/** The minimum amount of support an amendment should have.\n\n    @note This value is used by legacy code and will become obsolete\n          once the fixAmendmentMajorityCalc amendment activates.\n*/\nconstexpr std::ratio<204, 256> preFixAmendmentMajorityCalcThreshold;\n\nconstexpr std::ratio<67, 100> postFixAmendmentMajorityCalcThreshold;\n\n/** The minimum amount of time an amendment must hold a majority */\nconstexpr std::chrono::seconds const defaultAmendmentMajorityTime = std::chrono::weeks{2};\n"
+    },
+    "validator_keys": {
+      "file": "src/xrpld/app/misc/ValidatorKeys.h",
+      "lines": "32-70",
+      "text": "class Config;\n\n/** Validator keys and manifest as set in configuration file.  Values will be\n    empty if not configured as a validator or not configured with a manifest.\n*/\nclass ValidatorKeys\n{\npublic:\n    // Group all keys in a struct. Either all keys are valid or none are.\n    struct Keys\n    {\n        PublicKey masterPublicKey;\n        PublicKey publicKey;\n        SecretKey secretKey;\n\n        Keys() = delete;\n        Keys(\n            PublicKey const& masterPublic_,\n            PublicKey const& public_,\n            SecretKey const& secret_)\n            : masterPublicKey(masterPublic_)\n            , publicKey(public_)\n            , secretKey(secret_)\n        {\n        }\n    };\n\n    // Note: The existence of keys cannot be used as a proxy for checking the\n    // validity of a configuration. It is possible to have a valid\n    // configuration while not setting the keys, as per the constructor of\n    // the ValidatorKeys class.\n    std::optional<Keys> keys;\n    NodeID nodeID;\n    std::string manifest;\n    std::uint32_t sequence = 0;\n\n    ValidatorKeys() = delete;\n    ValidatorKeys(Config const& config, beast::Journal j);\n\n"
+    },
+    "validator_site_parse": {
+      "file": "src/xrpld/app/misc/detail/ValidatorSite.cpp",
+      "lines": "372-402",
+      "text": "ValidatorSite::parseJsonResponse(\n    std::string const& res,\n    std::size_t siteIdx,\n    std::lock_guard<std::mutex> const& sites_lock)\n{\n    Json::Value const body = [&res, siteIdx, this]() {\n        Json::Reader r;\n        Json::Value body;\n        if (!r.parse(res.data(), body))\n        {\n            JLOG(j_.warn()) << \"Unable to parse JSON response from  \"\n                            << sites_[siteIdx].activeResource->uri;\n            throw std::runtime_error{\"bad json\"};\n        }\n        return body;\n    }();\n\n    auto const [valid, version, blobs] = [&body]() {\n        // Check the easy fields first\n        bool valid = body.isObject() && body.isMember(jss::manifest) &&\n            body[jss::manifest].isString() && body.isMember(jss::version) &&\n            body[jss::version].isInt();\n        // Check the version-specific blob & signature fields\n        std::uint32_t version;\n        std::vector<ValidatorBlobInfo> blobs;\n        if (valid)\n        {\n            version = body[jss::version].asUInt();\n            blobs = ValidatorList::parseBlobs(version, body);\n            valid = !blobs.empty();\n        }\n"
+    }
+  },
+  "tree": "/home/hatch/workspace/postfiatd-amendment/worktree-0085a1ff"
+}

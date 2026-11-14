@@ -1,0 +1,103 @@
+{
+  "account_info_malformed": {
+    "result": {
+      "error": "actMalformed",
+      "error_code": 35,
+      "error_message": "Account malformed.",
+      "ledger_current_index": 8049723,
+      "request": {
+        "account": "rINVALID",
+        "command": "account_info"
+      },
+      "status": "error",
+      "validated": false
+    }
+  },
+  "captured_utc": "2026-11-14T19:21:08Z",
+  "endpoint": "https://rpc.testnet.postfiat.org/",
+  "ledger_closed": {
+    "result": {
+      "ledger_hash": "274D500194445C80CF1010CDFCBBEC9EAEA3205921CC6F6DB37B863E735CBFB5",
+      "ledger_index": 8049720,
+      "status": "success"
+    }
+  },
+  "server_info": {
+    "result": {
+      "info": {
+        "build_version": "1.0.9",
+        "complete_ledgers": "7950054-8049722",
+        "hostid": "MUFF",
+        "initial_sync_duration_us": "144067489",
+        "io_latency_ms": 1,
+        "jq_trans_overflow": "0",
+        "last_close": {
+          "converge_time_s": 2,
+          "proposers": 24
+        },
+        "load_factor": 1,
+        "network_id": 2025,
+        "peer_disconnects": "88",
+        "peer_disconnects_resources": "0",
+        "peers": 21,
+        "ports": [
+          {
+            "port": "2559",
+            "protocol": [
+              "peer"
+            ]
+          },
+          {
+            "port": "6005",
+            "protocol": [
+              "ws"
+            ]
+          },
+          {
+            "port": "50051",
+            "protocol": [
+              "grpc"
+            ]
+          }
+        ],
+        "pubkey_node": "n9K4AomBUHA8XGwXtZs6qfCjXm5aXre9UchiD6oGuZx1UeRLUweE",
+        "server_state": "full",
+        "server_state_duration_us": "1564316049635",
+        "state_accounting": {
+          "connected": {
+            "duration_us": "42011874",
+            "transitions": "3"
+          },
+          "disconnected": {
+            "duration_us": "100053977",
+            "transitions": "3"
+          },
+          "full": {
+            "duration_us": "1564316049635",
+            "transitions": "1"
+          },
+          "syncing": {
+            "duration_us": "2001613",
+            "transitions": "1"
+          },
+          "tracking": {
+            "duration_us": "21",
+            "transitions": "1"
+          }
+        },
+        "time": "2026-Nov-14 19:21:16.214390 UTC",
+        "uptime": 1564460,
+        "validated_ledger": {
+          "age": 2,
+          "base_fee_xrp": 1e-05,
+          "hash": "2555E3337283542E76C953B167FA0896EE9B702CDDA5CE1DE980F387257D32B9",
+          "reserve_base_xrp": 10,
+          "reserve_inc_xrp": 2,
+          "seq": 8049722
+        },
+        "validation_quorum": 17
+      },
+      "status": "success"
+    }
+  }
+}
