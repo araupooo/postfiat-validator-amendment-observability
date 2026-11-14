@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Validator and Amendment Observability — PFTL</title>
+<style>
+body { font-family: system-ui, sans-serif; max-width: 960px; margin: 2em auto; padding: 0 1em; color: #1a1a1a; }
+h1 { font-size: 1.6em; } h2 { font-size: 1.25em; margin-top: 2em; }
+table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+th, td { border: 1px solid #bbb; padding: 6px 10px; text-align: left; vertical-align: top; }
+th { background: #f0f0f0; }
+code, pre { background: #f6f6f6; padding: 2px 4px; }
+pre { padding: 12px; overflow-x: auto; }
+.big { font-size: 1.3em; font-weight: bold; }
+.pass { color: #0a7a1f; font-weight: bold; }
+</style>
+</head>
+<body>
+<h1>Validator and Amendment Observability Evidence Pack</h1>
+<p>Pinned postfiatd tree: <code>0085a1ff885d6a446369cf73a4430f75af22be55</code>. All ledger observation
+was read-only from the public RPC <code>https://rpc.testnet.postfiat.org/</code>;
+no live-network mutation, no changes to the pinned tree.</p>
+
+<h2>Headline — measured per-ledger fee burn</h2>
+<p class="big">Mean burn: 3.90 drops/ledger (median 0, min 0, max 50)</p>
+<p>Measured over <strong>198 consecutive validated ledgers</strong>
+(seq 8049400&ndash;8049599,
+198 fetched of 200 requested,
+total burn 772 drops). The previously cited rounded figure of
+<strong>10 drops/ledger</strong> was the per-transaction base fee, not a
+per-ledger measurement — the correction factor is 2.56x. Per-ledger
+burn = sum of the Fee field of that ledger's transactions; fees are destroyed
+(<code>ApplyStateTable::destroyXRP</code>), not paid to anyone. Cross-check:
+<code>total_coins</code> delta between consecutive ledgers equals the burn in
+195/197 pairs; the 2 mismatches are fully explained by the 2 unfetched
+ledgers (implied burns 30 and 20 drops).</p>
+
+<h2>Headline figures</h2>
+<table>
+<tr><th>Metric</th><th>Value</th><th>Method</th></tr>
+<tr><td>Mean fee burn</td><td>3.90 drops/ledger</td><td>sum of per-ledger tx fees, 198 ledgers</td></tr>
+<tr><td>Median fee burn</td><td>0 drops/ledger</td><td>same sample</td></tr>
+<tr><td>Mean burn, non-empty ledgers only</td><td>22.71 drops/ledger</td><td>772 drops / 34 non-empty ledgers</td></tr>
+<tr><td>Empty ledgers</td><td>164/198 (82.8%)</td><td>count of ledgers with 0 transactions</td></tr>
+<tr><td>Ledger close interval</td><td>mean 3.046 s, median 1.0 s</td><td>stored close_time deltas</td></tr>
+<tr><td>Validation quorum / implied UNL</td><td>17 / 25 (68%)</td><td>quorum formula in tree; live <code>validation_quorum</code> 17</td></tr>
+<tr><td>Proposers (last close)</td><td>24 in every sample</td><td><code>server_info</code>, 25 samples</td></tr>
+<tr><td>Amendments inventoried</td><td>101 total, 64 enabled, 101 supported, 0 vetoed, 0 in majority</td><td><code>feature</code> method snapshot</td></tr>
+<tr><td>Reference fee / reserves</td><td>10 drops; 10 XRP + 2 XRP per owner item</td><td><code>Config.h:69,72,75</code></td></tr>
+<tr><td>Amendment threshold</td><td>204/256 pre-fix, 67/100 post-fix; 2-week majority hold</td><td><code>SystemParameters.h:83,85,88</code></td></tr>
+<tr><td>Flag-ledger interval</td><td>256 ledgers</td><td><code>Ledger.h:426</code></td></tr>
+</table>
+
+<h2>Harness results</h2>
+<p>Checks: <strong>30 total, 30 passed, 0 failed</strong>.
+Constants verification: <strong>constants: 20/20 OK</strong>. The harness
+recomputes every figure offline from the vendored fixtures; no network access.
+Fresh-clone reproduction: <code>bash run_all.sh</code> exits 0, git status
+clean, outputs byte-identical (see REPRODUCTION.md; fresh logs in
+<code>results/outputs/</code>).</p>
+<table>
+<tr><th>Check</th><th>Title</th><th>Kind</th><th>Result</th></tr>
+<tr><td>V01</td><td>Pinned commit identity</td><td>TESTED</td><td>PASS</td></tr>
+<tr><td>V02</td><td>Validator quorum formula and live quorum</td><td>TESTED</td><td>PASS</td></tr>
+<tr><td>V03</td><td>Validator-list site configuration and parsing</td><td>TESTED</td><td>PASS</td></tr>
+<tr><td>V04</td><td>Validator keys and manifest come from configuration</td><td>TESTED</td><td>PASS</td></tr>
+<tr><td>V05</td><td>Validator-list application validates publishers</td><td>TESTED</td><td>PASS</td></tr>
+<tr><td>V06</td><td>Negative-UNL water marks</td><td>TESTED</td><td>PASS</td></tr>
+<tr><td>V07</td><td>Live validator participation (proposers)</td><td>TESTED</td><td>PASS</td></tr>
+<tr><td>V08</td><td>Live server identity</td><td>TESTED</td><td>PASS</td></tr>
+<tr><td>V09</td><td>Amendment majority thresholds</td><td>TESTED</td><td>PASS</td></tr>
+<tr><td>V10</td><td>Amendment majority hold time</td><td>TESTED</td><td>PASS</td></tr>
+<tr><td>V11</td><td>Flag-ledger voting cadence and quorum gate</td><td>TESTED</td><td>PASS</td></tr>
+<tr><td>V12</td><td>Amendment votes travel in validations</td><td>TESTED</td><td>PASS</td></tr>
+<tr><td>V13</td><td>Live amendment inventory (feature method)</td><td>TESTED</td><td>PASS</td></tr>
+<tr><td>V14</td><td>Fee-vote path at flag ledgers</td><td>TESTED</td><td>PASS</td></tr>
+<tr><td>V15</td><td>Fees are destroyed, not paid</td><td>TESTED</td><td>PASS</td></tr>
+<tr><td>V16</td><td>Reference fee and reserves</td><td>TESTED</td><td>PASS</td></tr>
+<tr><td>V17</td><td>Measured per-ledger fee burn (headline)</td><td>TESTED</td><td>PASS</td></tr>
+<tr><td>V18</td><td>Burn cross-check against total_coins</td><td>TESTED</td><td>PASS</td></tr>
+<tr><td>V19</td><td>Per-transaction fee distribution</td><td>TESTED</td><td>PASS</td></tr>
+<tr><td>V20</td><td>Ledger cadence and transaction mix</td><td>TESTED</td><td>PASS</td></tr>
+<tr><td>V21</td><td>Corrected headline vs the prior rounded figure</td><td>TESTED</td><td>PASS</td></tr>
+<tr><td>V22</td><td>server_info returns the fields agents need</td><td>TESTED</td><td>PASS</td></tr>
+<tr><td>V23</td><td>ledger method returns per-transaction fees</td><td>TESTED</td><td>PASS</td></tr>
+<tr><td>V24</td><td>fee method returns fee levels</td><td>TESTED</td><td>PASS</td></tr>
+<tr><td>V25</td><td>ledger_closed returns the validated ledger</td><td>TESTED</td><td>PASS</td></tr>
+<tr><td>V26</td><td>account_info error path for malformed accounts</td><td>TESTED</td><td>PASS</td></tr>
+<tr><td>V27</td><td>feature method inventory completeness</td><td>TESTED</td><td>PASS</td></tr>
+<tr><td>V28</td><td>RPC handlers exist in the pinned tree</td><td>TESTED</td><td>PASS</td></tr>
+<tr><td>V29</td><td>Sample chain integrity</td><td>TESTED</td><td>PASS</td></tr>
+<tr><td>V30</td><td>Sample coverage and failures</td><td>TESTED</td><td>PASS</td></tr>
+</table>
+
+<h2>Findings</h2>
+<table>
+<tr><th>ID</th><th>Severity</th><th>Status</th><th>Finding</th><th>Checks</th></tr>
+<tr><td>F-01</td><td>Medium</td><td>CONFIRMED</td><td>Prior &quot;10 drops/ledger&quot; headline was the per-transaction base fee, not a per-ledger measurement; measured mean is 3.90 drops/ledger</td><td>V17, V21</td></tr>
+<tr><td>F-02</td><td>Low</td><td>CONFIRMED</td><td>164 of 198 ledgers (82.8%) are empty, so the mean burn is dominated by idle ledgers; the median burn is 0</td><td>V17, V20</td></tr>
+<tr><td>F-03</td><td>Low</td><td>CONFIRMED</td><td>No amendment is currently in majority and the feature snapshot is point-in-time; a single snapshot cannot show whether an amendment is trending toward majority</td><td>V13</td></tr>
+<tr><td>F-04</td><td>Low</td><td>CONFIRMED</td><td>Validator participation is observable only as an aggregate proposers count (24); no per-validator participation is exposed by the public read-only API</td><td>V07</td></tr>
+<tr><td>F-05</td><td>Low</td><td>CONFIRMED</td><td>median_fee (5000 drops) was observed at 500x the base fee (10 drops) with an empty queue; the reason the escalation multiplier sat at 500x was not established</td><td>V24</td></tr>
+<tr><td>F-06</td><td>Informational</td><td>CONFIRMED</td><td>2 of 200 requested ledgers failed to fetch after 4 attempts each (connection dropped mid-response); measurement scripts must retry and record failures</td><td>V30</td></tr>
+<tr><td>F-07</td><td>Informational</td><td>CONFIRMED</td><td>One transaction paid 12 drops instead of the 10-drop reference fee; the reason was not established</td><td>V19</td></tr>
+</table>
+<p>Full finding detail, mitigations, and honest limitations: <code>FINDINGS.md</code>.
+Claim-to-evidence index: <code>claim_evidence_index.md</code>.</p>
+
+<h2>Reproduction</h2>
+<pre>git clone &lt;repo-url&gt; observability-repro
+cd observability-repro
+bash run_all.sh
+# expected: checks: 30 total, 30 passed, 0 failed
+#           constants: 20/20 OK
+#           verify_digests.sh: all files OK, 0 failed
+# exit 0, git status clean
+bash verify_digests.sh --check</pre>
+
+<h2>Run log (tail)</h2>
+<pre>  hypothesis: 198 of 200 requested ledgers were fetched; the 2 failures are recorded with their errors and excluded from every statistic.
+  result: PASS
+  requested: 200, fetched: 198 OK
+  failed seq 8049459: RPC ledger failed after 4 attempts: IncompleteRead(3322 bytes read, 2406 more expected) OK
+  failed seq 8049590: RPC ledger failed after 4 attempts: IncompleteRead(7955 bytes read, 4871 more expected) OK
+  failed ledgers excluded from all statistics; their burn is only implied (V18), never counted OK
+checks: 30 total, 30 passed, 0 failed
+live tree note: live re-run: git rev-parse HEAD matches pinned commit</pre>
+
+<h2>Limitations</h2>
+<ul>
+<li>The fee-burn figure covers a 7-minute window; activity varies by time of day.</li>
+<li>Per-validator participation and amendment-majority trends need the validations stream / repeated snapshots; not measured here.</li>
+<li>The 12-drop transaction and the 500x median fee are reported as observed; their causes were not established.</li>
+<li>Only JSON-RPC over HTTPS was probed; WebSocket APIs were not used.</li>
+</ul>
+</body>
+</html>
